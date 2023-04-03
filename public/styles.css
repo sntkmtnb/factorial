@@ -63,4 +63,14 @@ body {
 
 #check-solution {
     margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.check-solution-c {
+    display: grid;
+    grid-template-columns: repeat(4, 50px);
+    grid-template-rows: repeat(4, 50px);
+    gap: 1px;
+    transform: scale(0.7);
+    float: left;
 }

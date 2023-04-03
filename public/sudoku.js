@@ -26,6 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const inputs = board.getElementsByTagName("input");
         let values = Array.from(inputs).map((input) => parseInt(input.value, 10));
 
+        console.log(values);
+        console.log(puzzle);
+
         let check_row = [0, 0, 0];
         let check_col = [0, 0, 0];
 
@@ -53,10 +56,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
         for (let i = 0; i < 3; i++) {
-            document.getElementById(`check-col-${i+1}-n`).innerHTML = check_row[i] % 4;
-            document.getElementById(`check-col-${i+1}-h`).innerHTML = Math.floor(check_row[i] / 4);
-            document.getElementById(`check-row-${i+1}-n`).innerHTML = check_col[i] % 4;
-            document.getElementById(`check-row-${i+1}-h`).innerHTML = Math.floor(check_col[i] / 4);
+            document.getElementById(`check-col-${i + 1}-n`).innerHTML = check_row[i] % 4;
+            document.getElementById(`check-col-${i + 1}-h`).innerHTML = Math.floor(check_row[i] / 4);
+            document.getElementById(`check-row-${i + 1}-n`).innerHTML = check_col[i] % 4;
+            document.getElementById(`check-row-${i + 1}-h`).innerHTML = Math.floor(check_col[i] / 4);
         }
 
         for (let row = 0; row < 3; row++) {
@@ -76,12 +79,19 @@ document.addEventListener("DOMContentLoaded", () => {
         return true;
     }
 
+    function save() {
+        const originalElement = document.getElementById('sudoku-board');
+        const targetElement = document.getElementById('solution-board');
+        const clonedElement = originalElement.cloneNode(true);
+        clonedElement.className = "check-solution-c";
+        targetElement.prepend(clonedElement);
+    }
+
     function checkSolution() {
         if (isSolved()) {
             alert("正解です！");
-        } else {
-            alert("不正解です。");
         }
+        save();
     }
 
     function shuffle() {
@@ -110,7 +120,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     newGameButton.addEventListener("click", generateSudoku);
+    newGameButton.addEventListener("touchend", generateSudoku);
     checkSolutionButton.addEventListener("click", checkSolution);
+    checkSolutionButton.addEventListener("touchend", checkSolution);
 
     // 初期盤面生成
     generateSudoku();
